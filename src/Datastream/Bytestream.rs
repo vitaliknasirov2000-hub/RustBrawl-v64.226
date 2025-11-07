@@ -68,7 +68,9 @@ impl ByteStream {
         self.writeInt(0);
     }
 
-    pub fn writeString(&mut self, value: Option<&str>) {
+    pub fn writeString(&mut self, strrrrng: &str) {
+        let value: Option<&str> = Some(strrrrng);
+
         if value.is_none() || value.unwrap().len() > 90000 {
             self.writeInt(-1);
             return;
@@ -84,7 +86,7 @@ impl ByteStream {
     }
 
     pub fn writeStringEmpty(&mut self) {
-        self.writeString(None);
+        self.writeString("");
     }
 
     pub fn readString(&mut self) -> String {
@@ -208,12 +210,12 @@ impl ByteStream {
         }
     }
 
-    pub fn writeStringReference(&mut self, value: Option<&str>) {
+    pub fn writeStringReference(&mut self, value: &str) {
         self.writeString(value);
     }
 
     pub fn writeStringReferenceEmpty(&mut self) {
-        self.writeString(None);
+        self.writeString("");
     }
 
     pub fn writeLongLong(&mut self, value: i64) {

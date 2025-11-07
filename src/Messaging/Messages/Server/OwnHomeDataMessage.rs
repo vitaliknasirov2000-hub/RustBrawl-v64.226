@@ -113,8 +113,8 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeByte(1);
         stream.writeDataReference(16, 1);
 
-        stream.writeString(Some("BE"));
-        stream.writeString(Some("@soufgamev2"));
+        stream.writeString("EN");
+        stream.writeString("@soufgamev2");
 
         stream.writeVInt(6);
         {
@@ -704,7 +704,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(0);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -735,7 +735,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(6);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -766,7 +766,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(5);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -797,7 +797,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(20);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -828,7 +828,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(9);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -859,7 +859,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(2);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -890,7 +890,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(10);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -921,7 +921,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(24);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -952,7 +952,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(33);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -982,7 +982,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(9);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1012,7 +1012,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(0);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1023,7 +1023,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(0);
         stream.writeVInt(1);
         stream.writeVInt(38);
-        stream.writeString(Some("TID_POWER_LEAGUE_SEASON"));
+        stream.writeString("TID_POWER_LEAGUE_SEASON");
         stream.writeVInt(1760605200);
         stream.writeVInt(1763542800);
         stream.writeVInt(2);
@@ -1122,7 +1122,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(0);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1153,7 +1153,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(38);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1184,7 +1184,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(48);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1215,7 +1215,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(21);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1246,7 +1246,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(14);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1279,7 +1279,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(0);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1310,7 +1310,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(6);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1341,7 +1341,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(5);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1372,7 +1372,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(20);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1403,7 +1403,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(9);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1434,7 +1434,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(3);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1465,7 +1465,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(8);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1496,7 +1496,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(24);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1527,7 +1527,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(32);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1557,7 +1557,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(20);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1587,7 +1587,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(0);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1618,7 +1618,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(38);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1649,7 +1649,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(48);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1680,7 +1680,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(11);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1711,7 +1711,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(48);
         stream.writeVInt(15);
         stream.writeVInt(0);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(0);
         stream.writeVInt(0);
@@ -1867,8 +1867,8 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(1);
         stream.writeVInt(1);
         stream.writeVInt(3);
-        stream.writeString(Some("f1b6a9157d14de12077002b568fea7633e7fcffe"));
-        stream.writeString(Some("/13319c62-3b9d-4970-97bc-c457fbaadd5e_contest_subway_surfers.sc"));
+        stream.writeString("f1b6a9157d14de12077002b568fea7633e7fcffe");
+        stream.writeString("/13319c62-3b9d-4970-97bc-c457fbaadd5e_contest_subway_surfers.sc");
         stream.writeVInt(98);
         stream.writeVInt(7);
         stream.writeVInt(0);
@@ -1917,7 +1917,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(29);
         stream.writeVInt(14);
         stream.writeVInt(-52);
-        stream.writeString(Some(""));
+        stream.writeString("");
         stream.writeVInt(0);
         stream.writeVInt(37);
         stream.writeVInt(1);
@@ -4152,7 +4152,7 @@ impl<'a> OwnHomeDataMessage<'a>
         stream.writeVInt(256617006);
         stream.writeVInt(0);
         stream.writeVInt(0);
-        stream.writeString(Some("@soufgamev2"));
+        stream.writeString("@soufgamev2");
         stream.writeVInt(1);
         stream.writeVInt(0);
         stream.writeVInt(0);

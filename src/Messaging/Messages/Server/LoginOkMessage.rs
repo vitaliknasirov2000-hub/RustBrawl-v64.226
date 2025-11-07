@@ -28,22 +28,22 @@ impl<'a> LoginOkMessage<'a>
         stream.writeInt(0);
         stream.writeInt(1);
 
-        stream.writeString(Some(""));
-        stream.writeString(Some(""));
-        stream.writeString(Some(""));
+        stream.writeString("");
+        stream.writeString("");
+        stream.writeString("");
 
         stream.writeInt(64);
         stream.writeInt(226);
         stream.writeInt(1);
-        stream.writeString(Some("prod"));
+        stream.writeString("dev");
 
         stream.writeInt(0);
         stream.writeInt(0);
         stream.writeInt(0);
 
-        stream.writeString(Some(""));
-        stream.writeString(Some(""));
-        stream.writeString(Some(""));
+        stream.writeString("");
+        stream.writeString("");
+        stream.writeString("");
 
         return self
     }
