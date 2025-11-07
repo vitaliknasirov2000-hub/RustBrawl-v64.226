@@ -11,9 +11,12 @@ RustBrawl is an **experimental Brawl Stars server emulator** built in **Rust**.
 
 # Client
 You need to **create the Client yourself**.
-The repository already includes the necessary scripts, you just need to add the Frida gadget into the apk/ipa.
+The repository already includes the necessary scripts in the folder "scripts", you just need to add the Frida gadget into the apk/ipa.
 I’ve prepared scripts for **all architectures** (Android ARM32, Android ARM64, iOS).
 
 # Note
 - Android scripts have not been tested, but the offsets are 100% correct.
 - Feel free to fork, clone, and contribute, any type of contribution is welcome!
+
+# Preview
+![RustBrawl](images/RustBrawl.png)
