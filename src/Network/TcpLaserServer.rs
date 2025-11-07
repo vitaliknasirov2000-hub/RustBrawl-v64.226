@@ -21,7 +21,7 @@ impl TcpLaserServer {
                     ServerLogger::Debug("TcpLaserServer", "Listen", &format!("New client connected: {}", stream.peer_addr().unwrap()));
 
                     thread::spawn(move || {
-                        Self::HandleClient(stream)
+                        TcpLaserServer::HandleClient(stream)
                     });
                 }
                 Err(e) => {

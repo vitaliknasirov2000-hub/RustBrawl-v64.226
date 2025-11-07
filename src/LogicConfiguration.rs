@@ -41,5 +41,5 @@ pub fn LoadConfig(Environment: Environments) -> (&'static str, i32) {
         Environments::Development => (Development::Ip, Development::Port),
     };
 
-    (Ip, Port)
+    return (Ip, Port);
 }

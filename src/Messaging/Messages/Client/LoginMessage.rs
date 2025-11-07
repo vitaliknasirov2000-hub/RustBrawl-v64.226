@@ -2,12 +2,15 @@ use crate::Messaging::PiranhaMessage::PiranhaMessage;
 use crate::Logic::ClientInstance::ClientInstance;
 use crate::Messaging::LogicLaserMessageFactory::LogicLaserMessageFactory;
 
-pub struct LoginMessage<'a> {
+pub struct LoginMessage<'a> 
+{
     pub Message: PiranhaMessage<'a>,
 }
 
-impl<'a> LoginMessage<'a> {
-    pub fn new(MsgPayload: &[u8], Client: &'a mut ClientInstance) -> Self {
+impl<'a> LoginMessage<'a> 
+{
+    pub fn new(MsgPayload: &[u8], Client: &'a mut ClientInstance) -> Self 
+    {
         let mut MessageInstance = PiranhaMessage::new(MsgPayload, Client);
 
         MessageInstance.setMessageTypeName("LoginMessage");
@@ -17,7 +20,8 @@ impl<'a> LoginMessage<'a> {
         Self { Message: MessageInstance }
     }
 
-    pub fn decode(&mut self) -> &mut Self {
+    pub fn decode(&mut self) -> &mut Self 
+    {
         let HighID = self.Message.stream.readInt();
         let LowID = self.Message.stream.readInt();
         let PassToken = self.Message.stream.readString();
@@ -54,6 +58,6 @@ impl<'a> LoginMessage<'a> {
     }
 
     pub fn process(&mut self) {
-        LogicLaserMessageFactory::createMessageByType(24101, &[], self.Message.getClientInstance());
+        LogicLaserMessageFactory::createMessageByType(20104, &[], self.Message.getClientInstance());
     }
 }
