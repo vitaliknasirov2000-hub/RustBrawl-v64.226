@@ -59,5 +59,5 @@ impl RustBrawl
 
 fn main() 
 {
-    RustBrawl::main()
+    RustBrawl::main();
 }

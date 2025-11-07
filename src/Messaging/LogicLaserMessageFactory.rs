@@ -2,8 +2,10 @@ use crate::Helpers::Logger::Logger as ServerLogger;
 use crate::Logic::ClientInstance::ClientInstance;
 
 use crate::Messaging::Messages::Client::LoginMessage::LoginMessage;
-use crate::Messaging::Messages::Server::LoginOkMessage::LoginOkMessage;
-use crate::Messaging::Messages::Server::OwnHomeDataMessage;
+use crate::Messaging::Messages::Server::
+{
+    LoginOkMessage::LoginOkMessage, OwnHomeDataMessage::OwnHomeDataMessage
+};
 
 pub struct LogicLaserMessageFactory;
 impl LogicLaserMessageFactory 
@@ -29,7 +31,9 @@ impl LogicLaserMessageFactory
 
             24101 =>
             {
-                // OwnHomeDataMessage::new(MsgPayload, Client).encode().process();
+                let mut msg = OwnHomeDataMessage::new(MsgPayload, Client);
+                msg.encode();
+                msg.process();
             }
 
             _ => 

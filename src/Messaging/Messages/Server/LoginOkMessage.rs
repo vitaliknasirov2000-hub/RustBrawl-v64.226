@@ -20,13 +20,36 @@ impl<'a> LoginOkMessage<'a>
     }
 
     pub fn encode(&mut self) -> &mut Self {
-        let ClientInst = self.Message.getClientInstance();
+        let stream = &mut self.Message.stream;
 
-        // self.Message.stream.writeLong(&ClientInst.GetHighID(), &ClientInst.GetLowID());
+        stream.writeInt(0);
+        stream.writeInt(1);
+
+        stream.writeInt(0);
+        stream.writeInt(1);
+
+        stream.writeString(Some(""));
+        stream.writeString(Some(""));
+        stream.writeString(Some(""));
+
+        stream.writeInt(64);
+        stream.writeInt(226);
+        stream.writeInt(1);
+        stream.writeString(Some("prod"));
+
+        stream.writeInt(0);
+        stream.writeInt(0);
+        stream.writeInt(0);
+
+        stream.writeString(Some(""));
+        stream.writeString(Some(""));
+        stream.writeString(Some(""));
+
         return self
     }
 
     pub fn process(&mut self) {
         self.Message.send();
+        LogicLaserMessageFactory::createMessageByType(24101, &[], self.Message.getClientInstance());
     }
 }

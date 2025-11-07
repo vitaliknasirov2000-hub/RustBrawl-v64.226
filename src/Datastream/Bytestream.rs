@@ -1,64 +1,67 @@
 use std::str;
 
 pub struct ByteStream {
-    pub Buffer: Vec<u8>,
-    pub Offset: usize,
-    pub BitOffset: u8,
+    pub buffer: Vec<u8>,
+    pub offset: usize,
+    pub bitOffset: u8,
 }
 
 impl ByteStream {
     pub fn new() -> Self {
         Self {
-            Buffer: Vec::new(),
-            Offset: 0,
-            BitOffset: 0,
+            buffer: Vec::new(),
+            offset: 0,
+            bitOffset: 0,
         }
     }
 
     pub fn ensureCapacity(&mut self, capacity: usize) {
-        if self.Offset + capacity > self.Buffer.len() {
-            self.Buffer.resize(self.Buffer.len() + capacity, 0);
+        let bufferLength = self.buffer.len();
+        if self.offset + capacity > bufferLength {
+            let mut newBuffer = vec![0; bufferLength + capacity];
+            newBuffer[..bufferLength].copy_from_slice(&self.buffer);
+            self.buffer = newBuffer;
         }
     }
 
     pub fn readInt(&mut self) -> i32 {
-        self.BitOffset = 0;
-        let val = ((self.Buffer[self.Offset] as i32) << 24)
-            | ((self.Buffer[self.Offset + 1] as i32) << 16)
-            | ((self.Buffer[self.Offset + 2] as i32) << 8)
-            | (self.Buffer[self.Offset + 3] as i32);
-        self.Offset += 4;
+        self.bitOffset = 0;
+        let val = ((self.buffer[self.offset] as i32) << 24)
+            | ((self.buffer[self.offset + 1] as i32) << 16)
+            | ((self.buffer[self.offset + 2] as i32) << 8)
+            | (self.buffer[self.offset + 3] as i32);
+        self.offset += 4;
         val
     }
 
     pub fn skip(&mut self, len: usize) {
-        self.BitOffset += len as u8;
+        self.bitOffset += len as u8;
     }
 
-    pub fn readShort(&mut self) -> i16 {
-        self.BitOffset = 0;
-        let val = ((self.Buffer[self.Offset] as i16) << 8)
-            | (self.Buffer[self.Offset + 1] as i16);
-        self.Offset += 2;
+    pub fn readShort(&mut self) -> i32 {
+        self.bitOffset = 0;
+        let val = ((self.buffer[self.offset] as i32) << 8)
+            | (self.buffer[self.offset + 1] as i32);
+        self.offset += 2;
         val
     }
 
-    pub fn writeShort(&mut self, value: i16) {
-        self.BitOffset = 0;
+    pub fn writeShort(&mut self, value: i32) {
+        self.bitOffset = 0;
         self.ensureCapacity(2);
-        self.Buffer.push((value >> 8) as u8);
-        self.Buffer.push((value & 0xFF) as u8);
-        self.Offset += 2;
+        self.buffer[self.offset] = ((value >> 8) & 0xFF) as u8;
+        self.buffer[self.offset + 1] = (value & 0xFF) as u8;
+        self.offset += 2;
     }
 
     pub fn writeInt(&mut self, value: i32) {
-        self.BitOffset = 0;
+        self.bitOffset = 0;
         self.ensureCapacity(4);
-        self.Buffer.push((value >> 24) as u8);
-        self.Buffer.push(((value >> 16) & 0xFF) as u8);
-        self.Buffer.push(((value >> 8) & 0xFF) as u8);
-        self.Buffer.push((value & 0xFF) as u8);
-        self.Offset += 4;
+        self.buffer[self.offset] = ((value >> 24) & 0xFF) as u8;
+        self.buffer[self.offset + 1] = ((value >> 16) & 0xFF) as u8;
+        self.buffer[self.offset + 2] = ((value >> 8) & 0xFF) as u8;
+        self.buffer[self.offset + 3] = (value & 0xFF) as u8;
+        self.offset += 4;
     }
 
     pub fn writeIntZero(&mut self) {
@@ -73,8 +76,11 @@ impl ByteStream {
 
         let str_bytes = value.unwrap().as_bytes();
         self.writeInt(str_bytes.len() as i32);
-        self.Buffer.extend_from_slice(str_bytes);
-        self.Offset += str_bytes.len();
+        self.ensureCapacity(str_bytes.len());
+        for b in str_bytes {
+            self.buffer[self.offset] = *b;
+            self.offset += 1;
+        }
     }
 
     pub fn writeStringEmpty(&mut self) {
@@ -84,13 +90,13 @@ impl ByteStream {
     pub fn readString(&mut self) -> String {
         let length = self.readInt();
         if length > 0 && length < 90000 {
-            if self.Offset + length as usize > self.Buffer.len() {
+            if self.offset + length as usize > self.buffer.len() {
                 return "".to_string();
             }
-            let s = str::from_utf8(&self.Buffer[self.Offset..self.Offset + length as usize])
+            let s = str::from_utf8(&self.buffer[self.offset..self.offset + length as usize])
                 .unwrap_or("")
                 .to_string();
-            self.Offset += length as usize;
+            self.offset += length as usize;
             s
         } else {
             "".to_string()
@@ -112,9 +118,9 @@ impl ByteStream {
     }
 
     pub fn writeVInt(&mut self, mut value: i32) {
-        self.BitOffset = 0;
+        self.bitOffset = 0;
         let mut temp = ((value >> 25) & 0x40) as u8;
-        let mut flipped = (value ^ (value >> 31)) as i32;
+        let mut flipped = value ^ (value >> 31);
         temp |= (value & 0x3F) as u8;
         value >>= 6;
         flipped >>= 6;
@@ -147,14 +153,13 @@ impl ByteStream {
         let mut shift = 0;
 
         loop {
-            let mut b = self.Buffer[self.Offset] as i32;
-            self.Offset += 1;
-            let (mut a1, mut a2, mut s);
+            let mut b = self.buffer[self.offset] as i32;
+            self.offset += 1;
 
             if shift == 0 {
-                a1 = (b & 0x40) >> 6;
-                a2 = (b & 0x80) >> 7;
-                s = (b << 1) & !0x181;
+                let a1 = (b & 0x40) >> 6;
+                let a2 = (b & 0x80) >> 7;
+                let s = (b << 1) & !0x181;
                 b = s | (a2 << 7) | a1;
             }
 
@@ -170,36 +175,35 @@ impl ByteStream {
     }
 
     pub fn writeBoolean(&mut self, value: bool) {
-        if self.BitOffset == 0 {
+        if self.bitOffset == 0 {
             self.ensureCapacity(1);
-            self.Buffer.push(0);
-            self.Offset += 1;
+            self.buffer[self.offset] = 0;
+            self.offset += 1;
         }
         if value {
-            let idx = self.Offset - 1;
-            self.Buffer[idx] |= 1 << self.BitOffset;
+            let idx = self.offset - 1;
+            self.buffer[idx] |= 1 << self.bitOffset;
         }
-        self.BitOffset = (self.BitOffset + 1) & 7;
+        self.bitOffset = (self.bitOffset + 1) & 7;
     }
 
     pub fn readBoolean(&mut self) -> bool {
         self.readVInt() >= 1
     }
 
-    pub fn writeHex(&mut self, hex: Option<&str>) { // chatgpt
-        self.BitOffset = 0;
+    pub fn writeHex(&mut self, hex: Option<&str>) {
+        self.bitOffset = 0;
         if let Some(mut data) = hex {
             if data.starts_with("0x") {
                 data = &data[2..];
             }
-
             let cleaned_data = data.replace(&[' ', '-'][..], "");
-
             self.ensureCapacity(cleaned_data.len() / 2);
-
-            for i in (0..cleaned_data.len()).step_by(2) {
+            let mut i = 0;
+            while i < cleaned_data.len() {
                 let byte = u8::from_str_radix(&cleaned_data[i..i + 2], 16).unwrap();
                 self.writeByte(byte);
+                i += 2;
             }
         }
     }
@@ -236,39 +240,43 @@ impl ByteStream {
     }
 
     pub fn writeByte(&mut self, value: u8) {
-        self.BitOffset = 0;
+        self.bitOffset = 0;
         self.ensureCapacity(1);
-        self.Buffer.push(value);
-        self.Offset += 1;
+        self.buffer[self.offset] = value;
+        self.offset += 1;
     }
 
     pub fn writeBytes(&mut self, bytes: Option<&[u8]>) {
         match bytes {
             Some(b) => {
                 self.writeInt(b.len() as i32);
-                self.Buffer.extend_from_slice(b);
-                self.Offset += b.len();
+                self.ensureCapacity(b.len());
+                for byte in b {
+                    self.buffer[self.offset] = *byte;
+                    self.offset += 1;
+                }
             }
             None => self.writeInt(-1),
         }
     }
 
     pub fn reset(&mut self) {
-        self.Buffer.clear();
-        self.Offset = 0;
+        self.buffer.clear();
+        self.offset = 0;
+        self.bitOffset = 0;
     }
 
     pub fn getLength(&self) -> usize {
-        self.Buffer.len()
+        self.buffer.len()
     }
 
     pub fn getBuffer(&self) -> &[u8] {
-        &self.Buffer
+        &self.buffer
     }
 
     pub fn replaceBuffer(&mut self, b: Vec<u8>) -> &Vec<u8> {
-        self.Offset = 0;
-        self.Buffer = b;
-        &self.Buffer
+        self.offset = 0;
+        self.buffer = b;
+        &self.buffer
     }
 }
